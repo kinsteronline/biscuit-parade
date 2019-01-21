@@ -1,13 +1,13 @@
+import { regex as delimiters } from './delimiters'
 
-const startsWithRe = /^[a-zA-z]+.*/
-const hasDelimiterRe = /[\|,\s]+/
+const startsWith = /^[a-zA-z]+.*/
 
 export function startsWithLetter (line = '') {
-  return line.match(startsWithRe) !== null
+  return line.match(startsWith) !== null
 }
 
 export function hasDelimiter (line = '') {
-  return line.match(hasDelimiterRe) !== null
+  return line.match(delimiters) !== null
 }
 
 export function isValidLine(line = '') {
