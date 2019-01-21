@@ -10,7 +10,7 @@ export function hasDelimiter (line = '') {
   return line.match(delimiters) !== null
 }
 
-export function isValidLine(line = '') {
+export function isValidLine (line = '') {
   return startsWithLetter(line) && hasDelimiter(line)
 }
 
