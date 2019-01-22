@@ -5,9 +5,18 @@
   "repository": "git@github.com:kinsteronline/biscuit-parade.git",
   "author": "kinsteronline <todd.makinster@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node -r esm server.js",
+    "test": "jest",
+    "test:verbose": "jest --verbose",
+    "test:coverage": "jest --coverage"
+  },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "chalk": "^2.4.2",
     "esm": "^3.0.84",
+    "express": "^4.16.4",
+    "express-pino-logger": "^4.0.0",
     "minimist": "^1.2.0",
     "ramda": "^0.26.1"
   },
@@ -15,11 +24,7 @@
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
     "babel-preset-env": "^1.7.0",
-    "jest": "^23.6.0"
-  },
-  "scripts": {
-    "test": "jest",
-    "test:verbose": "jest --verbose",
-    "test:coverage": "jest --coverage"
+    "jest": "^23.6.0",
+    "supertest": "^3.4.1"
   }
 }
