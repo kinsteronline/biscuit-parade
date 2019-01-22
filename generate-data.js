@@ -4,8 +4,8 @@ import dateFormat from './app/lib/date-format'
 
 const { _: files, ...options } = minimist(process.argv.slice(2))
 
-const count = parseInt(options.lines, 10) || 10
-const delimiter = options.delimiter || '|'
+const count = parseInt(options.lines, 10) || 100
+const delimiter = options.delimiter || ' '
 
 // it would be great to be able to pipe this right into import
 
