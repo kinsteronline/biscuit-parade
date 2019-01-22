@@ -1,4 +1,4 @@
-import zipToRecord, { zipToObject } from './zip-to-record'
+import zipToRecord, { zipToObject, mapProperties } from './zip-to-record'
 
 describe('zipToObject', () => {
   it('should build object from key and value arrays', () => {
@@ -19,11 +19,35 @@ describe('zipToRecord', () => {
     expect(record).toHaveProperty('favoriteColor', 'Leather')
     expect(record).toHaveProperty('dateOfBirth', '02/01/1948')
   })
+})
+
+describe('mapProperties', () => {
+  it('should include properties of a recrd', () => {
+    const obj = mapProperties({
+      LastName: 'Barker',
+      FirstName: 'Robert',
+      Gender: 'M',
+      FavoriteColor: 'Silver',
+      DateOfBirth: '02/01/1948'
+    })
+
+    expect(obj).toHaveProperty('firstName', 'Robert')
+    expect(obj).toHaveProperty('lastName', 'Barker')
+    expect(obj).toHaveProperty('gender', 'M')
+    expect(obj).toHaveProperty('favoriteColor', 'Silver')
+    expect(obj).toHaveProperty('dateOfBirth', '02/01/1948')
+  })
 
   it('should not include a property not part of a record', () => {
-    const record = zipToRecord([ 'LastName', 'FirstName', 'Gender', 'FavoriteColor', 'DateOfBirth', 'Job' ],
-                               [ 'Barker',   'Robert',    'M',      'Silver',        '12/12/1923',  'Host' ])
+    const obj = mapProperties({
+      LastName: 'Barker',
+      FirstName: 'Robert',
+      Job: 'Host'
+    })
 
-    expect(record).not.toHaveProperty('Job')
+    expect(obj).not.toHaveProperty('job')
+    expect(obj).not.toHaveProperty('Job')
+    expect(obj).toHaveProperty('lastName', 'Barker')
+    expect(obj).toHaveProperty('firstName', 'Robert')
   })
 })
