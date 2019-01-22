@@ -17,10 +17,6 @@ import {
   byLastNameDesc
 } from './lib/sort'
 
-const plainText = (record) => {
-  return `${record.firstName} ${record.lastName} (${record.gender}) ${dateFormat(record.dateOfBirth)} ${record.favoriteColor}`
-}
-
 function showHelp () {
   console.log()
   console.log(chalk.white('Usage: import [ --nice-tables --help ] filename'))
