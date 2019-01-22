@@ -35,3 +35,10 @@ $ ./bin/import --help
 $ ./bin/import filename
 $ ./bin/import --nice-tables file.csv
 ```
+
+*Generate a fake data file*
+```
+$ node -r esm ./generate-data.js > sample.data
+$ node -r esm ./generate-data.js --delimiter=, > sample.data
+$ node -r esm ./generate-data.js --lines=10000 --delimiter=\| > sample.data
+```
