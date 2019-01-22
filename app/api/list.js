@@ -4,10 +4,10 @@ import {
   byBirthDateAsc,
   byGenderThenLastNameAsc,
   byLastNameDesc
-} from '../util/sort'
+} from '../lib/sort'
 
-import { mapProperties } from '../util/zip-to-record'
-import Record from '../util/record'
+import { mapProperties } from '../lib/zip-to-record'
+import Record from '../lib/record'
 
 let datastore
 

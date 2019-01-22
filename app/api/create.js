@@ -1,10 +1,10 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 
-import Record from '../util/record'
-import splitString from '../util/split-string'
-import { isValidLine } from '../util/validations'
-import zipToRecord from '../util/zip-to-record'
+import Record from '../lib/record'
+import splitString from '../lib/split-string'
+import { isValidLine } from '../lib/validations'
+import zipToRecord from '../lib/zip-to-record'
 
 let datastore
 

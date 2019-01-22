@@ -2,16 +2,16 @@ import chalk from 'chalk'
 import minimist from 'minimist'
 import path from 'path'
 
-import dateFormat from './util/date-format'
-import fileToArray from './util/file-to-array'
-import splitString from './util/split-string'
-import { isValidLine } from './util/validations'
-import zipToRecord from './util/zip-to-record'
+import dateFormat from './lib/date-format'
+import fileToArray from './lib/file-to-array'
+import splitString from './lib/split-string'
+import { isValidLine } from './lib/validations'
+import zipToRecord from './lib/zip-to-record'
 import {
   byGenderThenLastNameAsc,
   byBirthDateAsc,
   byLastNameDesc
-} from './util/sort'
+} from './lib/sort'
 
 const plainText = (record) => {
   return `${record.firstName} ${record.lastName} (${record.gender}) ${dateFormat(record.dateOfBirth)} ${record.favoriteColor}`
