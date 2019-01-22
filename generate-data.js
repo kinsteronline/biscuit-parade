@@ -18,7 +18,7 @@ for (let i = 0; i <= count ; i++) {
     faker.name.lastName(),
     faker.name.firstName(),
     (faker.random.number({ min: 0, max: 100 }) >= 50) ? 'F' : 'M',
-    faker.commerce.color(),
+    faker.commerce.color().replace(/\s+/, ''),
     dateFormat(faker.date.between(new Date(1969,0,1), new Date(2009,12,31)))
   ].join(delimiter))
 }
