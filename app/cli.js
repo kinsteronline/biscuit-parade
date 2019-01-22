@@ -1,6 +1,10 @@
 import chalk from 'chalk'
 import minimist from 'minimist'
 import path from 'path'
+import {
+  table,
+  getBorderCharacters
+} from 'table'
 
 import dateFormat from './lib/date-format'
 import fileToArray from './lib/file-to-array'
@@ -17,8 +21,47 @@ const plainText = (record) => {
   return `${record.firstName} ${record.lastName} (${record.gender}) ${dateFormat(record.dateOfBirth)} ${record.favoriteColor}`
 }
 
+function showHelp () {
+  console.log()
+  console.log(chalk.white('Usage: import [ --nice-tables --help ] filename'))
+  console.log()
+  console.log(chalk.gray('Options'))
+  console.log(chalk.gray('  --nice-tables Show data in a nice table'))
+  console.log(chalk.gray('  --help This help'))
+  console.log()
+
+  process.exit(0)
+}
+
+const displayTable = (options, data) => {
+  const rows = [ ...data ]
+
+  const isNice = options['nice-tables'] === true
+  const config = {
+    border: getBorderCharacters(isNice ? 'honeywell' : 'void'),
+    columnDefault: {
+      paddingLeft: isNice ? 1 : 0
+    }
+  }
+
+  if (!isNice) Object.assign(config, { drawHorizontalLine: () => false })
+  if (isNice) rows.unshift([ 'LastName', 'FirstName', 'Gender', 'Color', 'DateOfBirth' ])
+
+  return table(rows, config)
+}
+
+const toTableData = (record) => [
+  record.lastName,
+  record.firstName,
+  record.gender,
+  record.favoriteColor,
+  dateFormat(record.dateOfBirth)
+]
+
 const main = async (args) => {
-  const { _: files, ...options } = minimist(args)
+  const { _: files, ...options } = minimist(args, { boolean: true })
+
+  if (options.help) showHelp()
   if (files.length === 0) throw new Error('Need at least one file to parse')
 
   const filepath = path.join(process.cwd(), files[0])
@@ -30,34 +73,25 @@ const main = async (args) => {
   const records = rows
     .map((row) => zipToRecord(keys, splitString(row)))
 
-  return records
+  return [ options, records ]
 }
 
 main(process.argv.slice(2))
-  .then(records => {
-    console.log('-'.repeat(40))
-    console.log('Output 1: Sorted by gender then last name')
-    byGenderThenLastNameAsc(records).forEach((record) => {
-      console.log(plainText(record))
-    })
+  .then(([ options, records ]) => {
 
-    console.log('-'.repeat(40))
-    console.log('Output 2: Sorted by birth date')
-    byBirthDateAsc(records).forEach((record) => {
-      console.log(plainText(record))
-    })
+    console.log('\nOutput 1: Sorted by gender then last name')
+    console.log(displayTable(options, byGenderThenLastNameAsc(records).map(toTableData)))
 
-    console.log('-'.repeat(40))
-    console.log('Output 3: Sorted by last name descending')
-    byLastNameDesc(records).forEach((record) => {
-      console.log(plainText(record))
-    })
+    console.log('\nOutput 2: Sorted by birth date')
+    console.log(displayTable(options, byBirthDateAsc(records).map(toTableData)))
 
-    console.log(chalk.green('done'))
+    console.log('\nOutput 3: Sorted by last name descending')
+    console.log(displayTable(options, byLastNameDesc(records).map(toTableData)))
+
     process.exit(0)
   })
   .catch(err => {
-    console.log(chalk.red('broke'))
-    console.log(err)
+    console.log(chalk.red('Error importing file'))
+    console.log(chalk.red(err.message))
     process.exit(1)
   })

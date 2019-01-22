@@ -3,6 +3,10 @@ import {
   genderCompare
 } from './compare'
 
+//
+// Create a copy of the records passed in for all sorts
+//
+
 export function byGenderThenLastNameAsc (records = []) {
   return [...records].sort((a, b) => {
     let result = genderCompare(a, b)

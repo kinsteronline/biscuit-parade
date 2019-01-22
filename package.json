@@ -20,7 +20,8 @@
     "minimist": "^1.2.0",
     "pino": "^5.10.8",
     "pino-pretty": "^2.5.0",
-    "ramda": "^0.26.1"
+    "ramda": "^0.26.1",
+    "table": "^5.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
