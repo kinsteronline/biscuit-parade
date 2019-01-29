@@ -24,10 +24,22 @@ export function byBirthDateAsc (records = []) {
   })
 }
 
-
 export function byLastNameDesc (records = []) {
   return [...records].sort((a, b) => {
     return -defaultCompare(a.lastName, b.lastName)
   })
 }
 
+//
+// todo: apply with comparison
+// export function quick (compareFn?, xs = []) {
+//
+export function quick (xs = []) {
+  if (xs.length < 2) return xs
+
+  const pivot = xs[0]
+  const smaller = xs.slice(1).filter((x) => x < pivot)
+  const larger = xs.slice(1).filter((x) => x >= pivot)
+
+  return [...quick(smaller), pivot, ...quick(larger)]
+}

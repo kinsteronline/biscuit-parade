@@ -2,7 +2,8 @@ import Record from './record'
 import {
   byGenderThenLastNameAsc,
   byBirthDateAsc,
-  byLastNameDesc
+  byLastNameDesc,
+  quick
 } from './sort'
 
 const chaka = new Record({
@@ -68,5 +69,11 @@ describe('sort', () => {
     const sorted = byLastNameDesc(records)
     expect(sorted).toEqual([ prince, chaka, roberta, missy, lilwayne ])
     expect(records).not.toStrictEqual(sorted)
+  })
+})
+
+describe('quick sort', () => {
+  it('should sort, correctly', () => {
+    expect(quick([ 22, 9, 60, 12, 4, 56 ])).toEqual([ 4, 9, 12, 22, 56, 60 ])
   })
 })
